@@ -1,4 +1,5 @@
 import express from 'express';
+import { sequelize } from './config/database.js';
 
 const HOST = '127.0.0.1'
 const PORT = '5000'
