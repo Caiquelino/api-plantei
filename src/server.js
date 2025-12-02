@@ -1,4 +1,7 @@
 import express from 'express';
+
+// IMPORTAR MODELS AQUI
+import './models/Produto.js';
 import { sequelize } from './config/database.js';
 
 const HOST = '127.0.0.1'
@@ -6,22 +9,23 @@ const PORT = '5000'
 
 const app = express();
 
-// Middlewares
-app.use(express.json())
+app.use(express.json());
 
 app.get('/', (req, res) => {
     res.send('API de Produtos funcionando 🚀');
-})
-
+});
 
 try {
-    await sequelize.authenticate()
-    console.log('🟢 Conectado ao banco de dados!');
-} catch (error) {
-    console.error('🔴 Erro ao conectar no banco:', error);
-}
+    await sequelize.authenticate();
+    console.log("🎉 Conectado ao Postgres Neon com sucesso!");
 
-//Iniciando o server
-app.listen(PORT, () => {
-    console.log(`Servidor rodando em http://${HOST}:${PORT}`);
-})
+    // CRIAR TABELAS AUTOMATICAMENTE
+    await sequelize.sync({ alter: true }); // ou { force: true } se quiser recriar
+    console.log("📦 Modelos sincronizados com o banco!");
+
+    app.listen(PORT, () =>
+        console.log(`🚀 Servidor rodando em http://${HOST}:${PORT}`)
+    );
+} catch (err) {
+    console.error("Erro ao iniciar o servidor:", err);
+}
