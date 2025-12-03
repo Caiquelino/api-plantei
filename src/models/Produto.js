@@ -6,6 +6,7 @@ export const Produto = sequelize.define('Produto', {
         type: DataTypes.STRING(150),
         allowNull: false,
         validate: {
+            //notNull: { msg: "Nome do produto é obrigatório" },  // <- ADICIONE ISTO
             notEmpty: { msg: "Nome do produto é obrigatório"},
             len: {
                 args: [3, 150],
