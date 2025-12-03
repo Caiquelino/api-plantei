@@ -16,9 +16,34 @@ app.get('/', (req, res) => {
     res.send('API de Produtos funcionando 🚀');
 });
 
+//Buscar produtos
+
+app.get('/produtos', async (req, res) => {
+    try {
+        const produtos = await Produto.findAll()
+
+        res.status(200).json({
+            mensagem: "Sucesso ao trazer os produtos!",
+            size: produtos.length,
+            data: produtos,
+        });
+    } catch (error) {
+        console.error(err);
+
+        // erros de validação do Sequelize
+        if (err.name === "SequelizeValidationError") {
+            return res.status(400).json({
+                erro: err.errors.map(e => e.message)
+            });
+        }
+
+        res.status(500).json({ erro: "Erro ao buscar produto" });
+    }
+})
+
 
 // Criar um produto
-app.post('/produto',  async (req, res) => {
+app.post('/produto', async (req, res) => {
     try {
         //payload é o produto que vem do request, através do body
         const payload = req.body;
