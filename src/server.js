@@ -12,6 +12,7 @@ const app = express();
 
 app.use(express.json());
 app.use('/produtos', produtosRoutes);
+app.use('/categoria', categoriaRoutes);
 
 try {
     await sequelize.authenticate();
