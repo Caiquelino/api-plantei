@@ -1,19 +1,18 @@
-import { Categoria } from "../models/categoria.js";
-
+import { Marca } from "../models/marca.js";
 
 export default {
   async listar(req, res) {
     try {
-      const categorias = await Categoria.findAll();
+      const marcas = await Marca.findAll();
 
 
       return res.status(200).json({
-        mensagem: "Categorias retornadas com sucesso!",
-        size: categorias.length,
-        data: categorias,
+        mensagem: "Marcas retornadas com sucesso!",
+        size: marcas.length,
+        data: marcas,
       });
     } catch (err) {
-      return res.status(500).json({ erro: "Erro ao buscar categorias" });
+      return res.status(500).json({ erro: "Erro ao buscar marcas" });
     }
   },
 
@@ -21,13 +20,13 @@ export default {
     try {
       const { id } = req.params;
 
-      const categoria = await Categoria.findByPk(id);
+      const marca = await Marca.findByPk(id);
 
-      if (!categoria) {
-        return res.status(404).json({ erro: "Categoria não encontrada" });
+      if (!marca) {
+        return res.status(404).json({ erro: "Marca não encontrada" });
       }
 
-      return res.json(categoria);
+      return res.json(marca);
     } catch (err) {
       return res.status(500).json({ erro: "Erro no servidor" });
     }
@@ -37,11 +36,11 @@ export default {
     try {
       const payload = req.body;
 
-      const novo = await Categoria.create(payload);
+      const novo = await Marca.create(payload);
 
 
       return res.status(201).json({
-        mensagem: "Categoria criada com sucesso!",
+        mensagem: "Marca criada com sucesso!",
         data: novo,
       });
     } catch (err) {
@@ -52,7 +51,7 @@ export default {
         });
       }
 
-      return res.status(500).json({ erro: "Erro ao criar categoria" });
+      return res.status(500).json({ erro: "Erro ao criar marca" });
     }
   },
 
@@ -61,20 +60,20 @@ export default {
       const { id } = req.params;
       const payload = req.body;
 
-      const categoria = await Categoria.findByPk(id);
+      const marca = await Marca.findByPk(id);
 
-      if (!categoria) {
-        return res.status(404).json({ erro: "Categoria não encontrada" });
+      if (!marca) {
+        return res.status(404).json({ erro: "Marca não encontrada" });
       }
 
-      await categoria.update(payload);
+      await marca.update(payload);
 
       return res.json({
-        mensagem: "Categoria atualizada com sucesso!",
-        data: categoria,
+        mensagem: "Marca atualizada com sucesso!",
+        data: marca,
       });
     } catch (err) {
-      return res.status(500).json({ erro: "Erro ao atualizar categoria" });
+      return res.status(500).json({ erro: "Erro ao atualizar marca" });
     }
   },
 
@@ -83,17 +82,17 @@ export default {
       const { id } = req.params;
       const payload = req.body;
 
-      const categoria = await Categoria.findByPk(id);
+      const marca = await Marca.findByPk(id);
 
-      if (!categoria) {
-        return res.status(404).json({ erro: "Categoria não encontrada" });
+      if (!marca) {
+        return res.status(404).json({ erro: "Marca não encontrada" });
       }
 
-      await categoria.update(payload);
+      await marca.update(payload);
 
       return res.json({
-        mensagem: "Categoria atualizada parcialmente!",
-        data: categoria,
+        mensagem: "Marca atualizada parcialmente!",
+        data: marca,
       });
     } catch (err) {
       return res.status(500).json({ erro: "Erro ao atualizar parcialmente" });

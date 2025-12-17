@@ -4,7 +4,8 @@ import express from 'express';
 import './models/Produto.js';
 import { sequelize } from './config/database.js';
 import produtosRoutes from './routes/produto.routes.js';
-
+import categoriaRoutes from './routes/categoria.router.js';
+import marcaRoutes from './routes/marca.router.js';
 const HOST = process.env.HOST
 const PORT = process.env.PORT || 5000;
 
@@ -13,6 +14,7 @@ const app = express();
 app.use(express.json());
 app.use('/produtos', produtosRoutes);
 app.use('/categoria', categoriaRoutes);
+app.use('/marca', marcaRoutes);
 
 try {
     await sequelize.authenticate();

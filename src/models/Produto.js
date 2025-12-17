@@ -51,6 +51,10 @@ export const Produto = sequelize.define('produto', {
     categoria_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
+    },
+    marca_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
     }
 
 });
